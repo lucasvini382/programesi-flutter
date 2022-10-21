@@ -3,14 +3,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 class AuthService {
-  Future<User> login(String? email, String? password) async {
-    final Map<String, dynamic> data = {
-      "login": email,
-      "password": password,
-      "systemId": "seller",
-    };
+  Future<UserModel> login(String? email, String? password) async {
 
-    var url = Uri.https('4ffd-45-191-107-15.ngrok.io', '/api/user/login');
+    var url =
+        Uri.https('spring-java-programesi.herokuapp.com', '/api/user/login');
     final Map<String, String> header = {
       "login": email ?? '',
       "password": password ?? '',
