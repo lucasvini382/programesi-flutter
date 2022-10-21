@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:programesi/model/user.model.dart';
+import 'package:programesi/utils/routing/routes.dart';
 import 'package:programesi/view_model/user.view_model.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -68,11 +69,14 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _loginUser(String email, String password) async {
     try {
-      User user = await userViewModel.loginUser(
+      UserModel user = await userViewModel.loginUser(
           emailController.text, passwordController.text);
 
-      print(user);
-      // Modular.to.navigate(rootRoute, arguments: userState);
+      print(user.timeworks!.first.entryHour);
+
+      if (user.firstName != null) {
+        Modular.to.pushNamed(calendarRoute);
+      }
     } on DioError catch (error, stack) {
       String? response;
 
@@ -85,8 +89,6 @@ class _LoginPageState extends State<LoginPage> {
 
       await Sentry.captureException(error, stackTrace: stack);
     } catch (error, stack) {
-      String? response =
-          'Ocorreu um erro. Por favor, verifique seus dados e tente novamente.';
       await Sentry.captureException(error, stackTrace: stack);
     } finally {
       setState(() => loading = false);
