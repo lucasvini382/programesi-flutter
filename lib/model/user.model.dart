@@ -26,14 +26,15 @@ class TimeworkModel {
   String? exitHour;
   String? description;
   String? initials;
+  List<CalendarModel>? calendars;
 
-  TimeworkModel({
-    required this.id,
-    required this.entryHour,
-    required this.exitHour,
-    required this.description,
-    required this.initials,
-  });
+  TimeworkModel(
+      {required this.id,
+      required this.entryHour,
+      required this.exitHour,
+      required this.description,
+      required this.initials,
+      required this.calendars});
 
   factory TimeworkModel.fromMap(Map<String, dynamic> map) {
     return TimeworkModel(
@@ -41,7 +42,26 @@ class TimeworkModel {
         entryHour: map['entryHour'],
         exitHour: map['exitHour'],
         description: map['description'],
-        initials: map['initials']);
+        initials: map['initials'],
+        calendars: List<CalendarModel>.from(
+          (map['calendars'] as List).map<CalendarModel>(
+            (x) => CalendarModel.fromMap(x as Map<String, dynamic>),
+          ),
+        ));
+  }
+}
+
+class CalendarModel {
+  int? id;
+  String? date;
+
+  CalendarModel({
+    required this.id,
+    required this.date,
+  });
+
+  factory CalendarModel.fromMap(Map<String, dynamic> map) {
+    return CalendarModel(id: map['id'], date: map['date']);
   }
 }
 
