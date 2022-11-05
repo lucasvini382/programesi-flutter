@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:programesi/styles/pgs_colors.dart';
 import 'package:programesi/utils/routing/routes.dart';
 import 'package:programesi/view_model/user.view_model.dart';
 
@@ -41,7 +42,16 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: PgsColors.mainColor,
+      ),
       floatingActionButton: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: PgsColors.mainColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50), // <-- Radius
+            ),
+          ),
           onPressed: () {
             Modular.to.pushNamed(registerRoute);
           },

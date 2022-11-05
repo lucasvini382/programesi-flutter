@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:programesi/utils/routing/routes.dart';
 import 'package:programesi/view_model/user.view_model.dart';
 import 'package:programesi/widgets/datepicker.widget.dart';
 
@@ -111,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       textStyle: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold)),
                   onPressed: () {
-                    Modular.to.pushNamed(calendarRoute);
+                    Modular.to.pop();
                   },
                   child: const Text('Cancelar'))
             ],
