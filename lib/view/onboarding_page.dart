@@ -7,14 +7,14 @@ import 'package:programesi/utils/routing/routes.dart';
 import 'package:programesi/view_model/user.view_model.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _OnboardingPageState extends State<OnboardingPage> {
   late ValueNotifier<bool> newLoading = ValueNotifier<bool>(false);
   final UserViewModel userViewModel = Modular.get<UserViewModel>();
   final TextEditingController emailController = TextEditingController();
@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.5,
+              height: MediaQuery.of(context).size.height / 6.5,
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -50,20 +50,11 @@ class _LoginPageState extends State<LoginPage> {
                 children: const <Widget>[
                   Spacer(),
                   Align(
-                    alignment: Alignment.center,
-                    child: Icon(
-                      Icons.person,
-                      size: 90,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Spacer(),
-                  Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
                       padding: EdgeInsets.only(bottom: 32, right: 32),
                       child: Text(
-                        'Login',
+                        'Criar conta',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
@@ -200,7 +191,9 @@ class _LoginPageState extends State<LoginPage> {
                                     );
                             }),
                         onPressed: () {
-                          Modular.to.pushNamed(onboardingRoute);
+                          newLoading.value = !newLoading.value;
+                          _loginUser(
+                              emailController.text, passwordController.text);
                         },
                       ),
                     ),

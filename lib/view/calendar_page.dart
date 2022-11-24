@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:programesi/styles/pgs_colors.dart';
@@ -19,15 +20,13 @@ class _CalendarPageState extends State<CalendarPage> {
   _runAudio(String path) async {
     try {
       await player?.play(AssetSource(path));
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   @override
   void initState() {
     player = AudioPlayer();
-    print(userViewModel.firstName);
+    print(formatDate(DateTime(1989, 02, 21), [yyyy, '-', mm, '-', dd]));
     super.initState();
   }
 
@@ -64,22 +63,49 @@ class _CalendarPageState extends State<CalendarPage> {
           child: ListView.builder(
               itemCount: userViewModel.timeworks!.length,
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Text(userViewModel.timeworks![0].description!),
-                    SizedBox(
-                        height: 2 * MediaQuery.of(context).devicePixelRatio),
-                    Text(userViewModel.timeworks![0].calendars![0].date!),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(userViewModel.timeworks![0].entryHour!),
-                        SizedBox(
-                            width: 2 * MediaQuery.of(context).devicePixelRatio),
-                        Text(userViewModel.timeworks![0].exitHour!),
-                      ],
-                    ),
-                  ],
+                return Container(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        const SizedBox(width: 10),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  userViewModel.timeworks![index].calendars![index].date ??
+                                      '',
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500)),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                  userViewModel.timeworks![index].description ??
+                                      '',
+                                  style: TextStyle(color: Colors.grey[600])),
+                            ])
+                      ]),
+                      Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xffeeeeee)),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: MaterialButton(
+                            elevation: 0,
+                            color: const Color(0x00ffffff),
+                            onPressed: () {},
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: const Text('Follow',
+                                style: TextStyle(color: Colors.black)),
+                          ))
+                    ],
+                  ),
                 );
               }),
         ),

@@ -44,6 +44,7 @@ dependencies:
   audioplayers: ^1.1.1
   infinite_scroll_pagination: ^3.2.0
   intl: ^0.17.0
+  date_format: ^2.0.7
 
 dev_dependencies:
   flutter_test:
